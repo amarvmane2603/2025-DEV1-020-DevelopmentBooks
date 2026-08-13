@@ -8,6 +8,7 @@ import java.util.List;
 public class PriceCalculator {
 
     public BigDecimal calculatePrice(List<Book> books) {
-        return Book.UNIT_PRICE;
+        int copies = books.size();
+        return Book.UNIT_PRICE.multiply(BigDecimal.valueOf(copies));
     }
 }
