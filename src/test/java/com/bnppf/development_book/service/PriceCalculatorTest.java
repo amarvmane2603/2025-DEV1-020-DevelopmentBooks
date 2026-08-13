@@ -28,4 +28,20 @@ public class PriceCalculatorTest {
         BigDecimal price = priceCalculator.calculatePrice(books);
         assertThat(price).isEqualByComparingTo("100.00");
     }
+
+    @Test
+    void threeCopiesOfSameBookCostFullPrice() {
+
+        List<Book> books = List.of(Book.CLEAN_CODE, Book.CLEAN_CODE, Book.CLEAN_CODE);
+        BigDecimal price = priceCalculator.calculatePrice(books);
+        assertThat(price).isEqualByComparingTo("150.00");
+    }
+
+    @Test
+    void emptyBasketCostsZero() {
+
+        List<Book> books = List.of();
+        BigDecimal price = priceCalculator.calculatePrice(books);
+        assertThat(price).isEqualByComparingTo("0.00");
+    }
 }
