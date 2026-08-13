@@ -10,6 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PriceCalculatorTest {
 
+    private final PriceCalculator priceCalculator = new PriceCalculator();
+
     @Test
     void oneBookCostsFifty() {
         List<Book> books = List.of(Book.CLEAN_CODE);
