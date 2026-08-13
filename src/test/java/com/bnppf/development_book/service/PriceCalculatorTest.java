@@ -1,6 +1,6 @@
-package com.bnppf.assignment.development_book.service;
+package com.bnppf.development_book.service;
 
-import com.bnppf.assignment.development_book.model.Book;
+import com.bnppf.development_book.model.Book;
 import java.math.BigDecimal;
 
 import java.util.List;

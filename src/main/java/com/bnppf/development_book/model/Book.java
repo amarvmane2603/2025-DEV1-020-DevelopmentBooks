@@ -1,4 +1,4 @@
-package com.bnppf.assignment.development_book.model;
+package com.bnppf.development_book.model;
 
 import java.math.BigDecimal;
 
