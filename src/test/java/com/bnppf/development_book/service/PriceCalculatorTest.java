@@ -122,4 +122,57 @@ public class PriceCalculatorTest {
 
         assertThat(price).isEqualByComparingTo("210.00");
     }
+
+    @Test
+    void fourDifferentBooksWithTwoDuplicatesCreateGroupsOfFourAndTwo() {
+        Basket basket = Basket.of(
+                Book.CLEAN_CODE, Book.CLEAN_CODE,
+                Book.THE_CLEAN_CODER, Book.THE_CLEAN_CODER,
+                Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE);
+
+        BigDecimal price = priceCalculator.calculatePrice(basket);
+
+        assertThat(price).isEqualByComparingTo("255.00");
+    }
+
+    @Test
+    void fiveDifferentBooksAndTwoDuplicatesCreateGroupsOfFiveAndTwo() {
+        Basket basket = Basket.of(
+                Book.CLEAN_CODE, Book.CLEAN_CODE,
+                Book.THE_CLEAN_CODER, Book.THE_CLEAN_CODER,
+                Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE,
+                Book.WORKING_EFFECTIVELY_WITH_LEGACY_CODE);
+
+        BigDecimal price = priceCalculator.calculatePrice(basket);
+
+        assertThat(price).isEqualByComparingTo("282.50");
+    }
+
+    @Test
+    void onePairAndTwoSingleCopiesArePricedAsSeparateGroups() {
+        Basket basket = Basket.of(
+                Book.CLEAN_CODE, Book.CLEAN_CODE, Book.CLEAN_CODE,
+                Book.THE_CLEAN_CODER);
+
+        BigDecimal price = priceCalculator.calculatePrice(basket);
+
+        assertThat(price).isEqualByComparingTo("195.00");
+    }
+
+    @Test
+    void twoCompleteSetsOfFiveGetDiscountForBothGroups() {
+        Basket basket = Basket.of(
+                Book.CLEAN_CODE, Book.CLEAN_CODE,
+                Book.THE_CLEAN_CODER, Book.THE_CLEAN_CODER,
+                Book.CLEAN_ARCHITECTURE, Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE, Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE,
+                Book.WORKING_EFFECTIVELY_WITH_LEGACY_CODE, Book.WORKING_EFFECTIVELY_WITH_LEGACY_CODE);
+
+        BigDecimal price = priceCalculator.calculatePrice(basket);
+
+        assertThat(price).isEqualByComparingTo("375.00");
+    }
+
 }
