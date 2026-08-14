@@ -51,7 +51,6 @@ public class PriceCalculator {
         while (hasBooksLeft(copiesByBook)) {
             groupSizes.add(takeOneOfEachBook(copiesByBook));
         }
-
         return groupSizes;
     }
 
@@ -61,7 +60,6 @@ public class PriceCalculator {
         for (Book book : basket.items()) {
             copiesByBook.merge(book, 1, Integer::sum);
         }
-
         return copiesByBook;
     }
 
@@ -82,10 +80,6 @@ public class PriceCalculator {
         return groupSize;
     }
 
-    /**
-     * The only special case the kata requires: a group of 5 and a group of
-     * 3 are cheaper billed as two groups of 4.
-     */
     private List<Integer> adjustForBestPrice(List<Integer> groupSizes) {
         List<Integer> adjustedGroups = new ArrayList<>(groupSizes);
 
@@ -104,7 +98,6 @@ public class PriceCalculator {
     private BigDecimal priceForGroup(int groupSize) {
         BigDecimal regularPrice = Book.UNIT_PRICE.multiply(BigDecimal.valueOf(groupSize));
         BigDecimal discountRate = DISCOUNT_RATES[groupSize - 1];
-
         return regularPrice.multiply(BigDecimal.ONE.subtract(discountRate));
     }
 }
