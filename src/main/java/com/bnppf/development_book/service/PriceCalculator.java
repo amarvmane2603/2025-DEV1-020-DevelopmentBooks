@@ -13,6 +13,8 @@ public class PriceCalculator {
 
         if (distinctBooks == 2) {
             return total.multiply(new BigDecimal("0.95"));
+        } else if (distinctBooks == 3) {
+            return total.multiply(new BigDecimal("0.90"));
         }
         return total;
     }
