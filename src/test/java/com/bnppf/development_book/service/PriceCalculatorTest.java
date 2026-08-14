@@ -47,7 +47,7 @@ public class PriceCalculatorTest {
 
     @Test
     void twoDifferentBooksGetFivePercentDiscount() {
-        List<Book> books = List.of(Book.CLEAN_CODE, Book.CLEAN_CODE, Book.CLEAN_CODE);
+        List<Book> books = List.of(Book.CLEAN_CODE, Book.CLEAN_ARCHITECTURE);
         BigDecimal price = priceCalculator.calculatePrice(books);
         assertThat(price).isEqualByComparingTo("95.00");
     }
