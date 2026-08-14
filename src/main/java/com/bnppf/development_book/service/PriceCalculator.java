@@ -82,10 +82,6 @@ public class PriceCalculator {
         return groupSize;
     }
 
-    /**
-     * The only special case the kata requires: a group of 5 and a group of
-     * 3 are cheaper billed as two groups of 4.
-     */
     private List<Integer> adjustForBestPrice(List<Integer> groupSizes) {
         List<Integer> adjustedGroups = new ArrayList<>(groupSizes);
 
