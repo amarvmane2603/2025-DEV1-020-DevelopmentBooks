@@ -175,4 +175,17 @@ public class PriceCalculatorTest {
         assertThat(price).isEqualByComparingTo("375.00");
     }
 
+    @Test
+    void officialExampleCostsThreeHundredTwenty() {
+        Basket basket = Basket.of(
+                Book.CLEAN_CODE, Book.CLEAN_CODE,
+                Book.THE_CLEAN_CODER, Book.THE_CLEAN_CODER,
+                Book.CLEAN_ARCHITECTURE, Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE,
+                Book.WORKING_EFFECTIVELY_WITH_LEGACY_CODE);
+
+        BigDecimal price = priceCalculator.calculatePrice(basket);
+
+        assertThat(price).isEqualByComparingTo("320.00");
+    }
 }
