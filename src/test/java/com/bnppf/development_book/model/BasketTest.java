@@ -1,5 +1,6 @@
 package com.bnppf.development_book.model;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,13 +10,13 @@ public class BasketTest {
 
     @Test
     void emptyBasketHasNoBooks() {
-        Basket basket = Basket.empty();
-
+        Basket basket = Basket.of(List.of());
         assertThat(basket.items()).isEmpty();
     }
 
     @Test
     void basketContainsAddedBooks() {
+
         Basket basket = Basket.of(Book.CLEAN_CODE, Book.THE_CLEAN_CODER);
 
         assertThat(basket.items())
