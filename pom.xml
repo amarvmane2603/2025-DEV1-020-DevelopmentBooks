@@ -11,7 +11,7 @@
     <groupId>com.bnppf</groupId>
     <artifactId>development-book</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>development-books-kata</name>
+    <name>development-books</name>
     <description>Development Books pricing kata - Spring Boot REST microservice (Java 21)</description>
 
     <properties>
