@@ -1,5 +1,6 @@
 package com.bnppf.development_book.service;
 
+import com.bnppf.development_book.model.Basket;
 import com.bnppf.development_book.model.Book;
 
 import java.math.BigDecimal;
@@ -16,13 +17,13 @@ public class PriceCalculator {
 
     };
 
-    public BigDecimal calculatePrice(List<Book> books) {
-        if (books.isEmpty()) {
+    public BigDecimal calculatePrice(Basket basket) {
+        if (basket.isEmpty()) {
             return BigDecimal.ZERO;
         }
 
-        BigDecimal total = Book.UNIT_PRICE.multiply(BigDecimal.valueOf(books.size()));
-        int distinctBooks = (int) books.stream().distinct().count();
+        BigDecimal total = Book.UNIT_PRICE.multiply(BigDecimal.valueOf(basket.size()));
+        int distinctBooks = (int) basket.items().stream().distinct().count();
         BigDecimal discountRate = DISCOUNT_RATES[distinctBooks - 1];
 
         return total.multiply(BigDecimal.ONE.subtract(discountRate));
