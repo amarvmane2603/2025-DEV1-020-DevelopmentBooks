@@ -7,15 +7,21 @@ import java.util.List;
 
 public class PriceCalculator {
 
-    public BigDecimal calculatePrice(List<Book> books) {
-        BigDecimal total = Book.UNIT_PRICE.multiply(BigDecimal.valueOf(books.size()));
-        long distinctBooks = books.stream().distinct().count();
+    private static final BigDecimal[] DISCOUNT_RATES = {
+            new BigDecimal("0.00"),
+            new BigDecimal("0.05"),
+            new BigDecimal("0.10")
+    };
 
-        if (distinctBooks == 2) {
-            return total.multiply(new BigDecimal("0.95"));
-        } else if (distinctBooks == 3) {
-            return total.multiply(new BigDecimal("0.90"));
+    public BigDecimal calculatePrice(List<Book> books) {
+        if (books.isEmpty()) {
+            return BigDecimal.ZERO;
         }
-        return total;
+
+        BigDecimal total = Book.UNIT_PRICE.multiply(BigDecimal.valueOf(books.size()));
+        int distinctBooks = (int) books.stream().distinct().count();
+        BigDecimal discountRate = DISCOUNT_RATES[distinctBooks - 1];
+
+        return total.multiply(BigDecimal.ONE.subtract(discountRate));
     }
 }
