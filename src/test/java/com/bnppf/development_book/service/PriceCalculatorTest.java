@@ -59,4 +59,24 @@ public class PriceCalculatorTest {
 
         assertThat(price).isEqualByComparingTo("135.00");
     }
+
+    @Test
+    void fourDifferentBooksGetTwentyPercentDiscount() {
+
+        List<Book> books = List.of(
+                Book.CLEAN_CODE, Book.THE_CLEAN_CODER, Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE);
+        BigDecimal price = priceCalculator.calculatePrice(books);
+
+        assertThat(price).isEqualByComparingTo("160.00");
+    }
+
+    @Test
+    void fiveDifferentBooksGetTwentyFivePercentDiscount() {
+        List<Book> books = List.of(
+                Book.CLEAN_CODE, Book.THE_CLEAN_CODER, Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE, Book.WORKING_EFFECTIVELY_WITH_LEGACY_CODE);
+        BigDecimal price = priceCalculator.calculatePrice(books);
+        assertThat(price).isEqualByComparingTo("187.50");
+    }
 }
