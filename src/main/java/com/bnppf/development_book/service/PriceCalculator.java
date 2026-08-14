@@ -20,14 +20,28 @@ public class PriceCalculator {
 
     };
 
+    private static final int FIVE_BOOKS = 5;
+    private static final int THREE_BOOKS = 3;
+    private static final int FOUR_BOOKS = 4;
+
     public BigDecimal calculatePrice(Basket basket) {
         List<Integer> groupSizes = groupSizes(basket);
+        List<Integer> bestGroupSizes = adjustForBestPrice(groupSizes);
 
         BigDecimal total = BigDecimal.ZERO;
-        for (int groupSize : groupSizes) {
+        for (int groupSize : bestGroupSizes) {
             total = total.add(priceForGroup(groupSize));
         }
         return total;
+    }
+
+    private List<Integer> adjustForBestPrice(List<Integer> groupSizes) {
+        List<Integer> adjustedGroups = new ArrayList<>(groupSizes);
+        while (adjustedGroups.contains(FIVE_BOOKS) && adjustedGroups.contains(THREE_BOOKS)) {
+            adjustedGroups.set(adjustedGroups.indexOf(FIVE_BOOKS), FOUR_BOOKS);
+            adjustedGroups.set(adjustedGroups.indexOf(THREE_BOOKS), FOUR_BOOKS);
+        }
+        return adjustedGroups;
     }
 
     private List<Integer> groupSizes(Basket basket) {
