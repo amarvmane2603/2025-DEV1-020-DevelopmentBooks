@@ -69,4 +69,16 @@ public class PriceCalculatorTest {
         BigDecimal price = priceCalculator.calculatePrice(basket);
         assertThat(price).isEqualByComparingTo("187.50");
     }
+
+    @Test
+    void fourDifferentBooksAndOneDuplicateCreateGroupsOfFourAndOne(){
+        Basket basket = Basket.of(
+                Book.CLEAN_CODE, Book.CLEAN_CODE,
+                Book.THE_CLEAN_CODER,
+                Book.CLEAN_ARCHITECTURE,
+                Book.TEST_DRIVEN_DEVELOPMENT_BY_EXAMPLE);
+
+        BigDecimal price = priceCalculator.calculatePrice(basket);
+        assertThat(price).isEqualByComparingTo("210.00");
+    }
 }
