@@ -10,7 +10,10 @@ public class PriceCalculator {
     private static final BigDecimal[] DISCOUNT_RATES = {
             new BigDecimal("0.00"),
             new BigDecimal("0.05"),
-            new BigDecimal("0.10")
+            new BigDecimal("0.10"),
+            new BigDecimal("0.20"),
+            new BigDecimal("0.25"),
+
     };
 
     public BigDecimal calculatePrice(List<Book> books) {
