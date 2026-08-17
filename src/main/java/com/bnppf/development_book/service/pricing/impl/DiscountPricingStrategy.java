@@ -6,9 +6,7 @@ import com.bnppf.development_book.service.pricing.PricingStrategy;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 public class DiscountPricingStrategy implements PricingStrategy {
 
@@ -24,52 +22,17 @@ public class DiscountPricingStrategy implements PricingStrategy {
     private static final int THREE_BOOKS = 3;
     private static final int FOUR_BOOKS = 4;
 
+    private final GroupSizeCalculator groupSizeCalculator = new GroupSizeCalculator();
+
     @Override
     public BigDecimal priceFor(Basket basket) {
-        List<Integer> groupSizes = groupSizes(basket);
+        List<Integer> groupSizes = groupSizeCalculator.calculateGroupSizes(basket);
         List<Integer> bestGroupSizes = adjustForBestPrice(groupSizes);
 
         return bestGroupSizes.stream()
                 .map(this::priceForGroup)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .setScale(MONEY_SCALE, RoundingMode.HALF_UP);
-    }
-    private List<Integer> groupSizes(Basket basket) {
-        Map<Book, Integer> copiesByBook = countCopies(basket);
-        List<Integer> groupSizes = new ArrayList<>();
-
-        while (hasBooksLeft(copiesByBook)) {
-            groupSizes.add(takeOneOfEachBook(copiesByBook));
-        }
-
-        return groupSizes;
-    }
-
-    private Map<Book, Integer> countCopies(Basket basket) {
-        Map<Book, Integer> copiesByBook = new EnumMap<>(Book.class);
-
-        for (Book book : basket.items()) {
-            copiesByBook.merge(book, 1, Integer::sum);
-        }
-
-        return copiesByBook;
-    }
-
-    private boolean hasBooksLeft(Map<Book, Integer> copiesByBook) {
-        return copiesByBook.values().stream().anyMatch(copies -> copies > 0);
-    }
-
-    private int takeOneOfEachBook(Map<Book, Integer> copiesByBook) {
-        int groupSize = 0;
-
-        for (Map.Entry<Book, Integer> entry : copiesByBook.entrySet()) {
-            if (entry.getValue() > 0) {
-                entry.setValue(entry.getValue() - 1);
-                groupSize++;
-            }
-        }
-
-        return groupSize;
     }
 
     private List<Integer> adjustForBestPrice(List<Integer> groupSizes) {
