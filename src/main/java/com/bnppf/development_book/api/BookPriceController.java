@@ -7,6 +7,7 @@ import com.bnppf.development_book.model.Basket;
 import com.bnppf.development_book.model.Book;
 import com.bnppf.development_book.service.BookCatalog;
 import com.bnppf.development_book.service.PriceCalculator;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class BookPriceController {
     }
 
     @PostMapping("/price")
-    public PriceResponse calculatePrice(@RequestBody PriceRequest request) {
+    public PriceResponse calculatePrice(@Valid @RequestBody PriceRequest request) {
         Basket basket = Basket.of(toBooks(request.books()));
 
         return PriceResponse.of(priceCalculator.priceFor(basket));

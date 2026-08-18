@@ -3,6 +3,7 @@ package com.bnppf.development_book.exception;
 import com.bnppf.development_book.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -12,6 +13,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UnknownBookException.class)
     ResponseEntity<ErrorResponse> handleUnknownBook(UnknownBookException exception) {
         return badRequest(exception.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    ResponseEntity<ErrorResponse> handleMissingField(MethodArgumentNotValidException exception) {
+        return badRequest("books must be provided");
     }
 
     private ResponseEntity<ErrorResponse> badRequest(String message) {
