@@ -73,4 +73,19 @@ class BookPriceControllerTest {
         response.andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Unknown book: NOT_A_REAL_BOOK"));
     }
+
+    @Test
+    void returnsBadRequestWhenBooksFieldIsMissing() throws Exception {
+        // Arrange
+        String requestBody = "{}";
+
+        // Act
+        var response = mockMvc.perform(post("/api/books/price")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody));
+
+        // Assert
+        response.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("books must be provided"));
+    }
 }
