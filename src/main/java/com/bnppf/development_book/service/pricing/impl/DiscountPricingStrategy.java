@@ -7,8 +7,10 @@ import com.bnppf.development_book.service.pricing.constants.DiscountRate;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
-public class DiscountPricingStrategy implements PricingStrategy {
+@Component
+public final class DiscountPricingStrategy implements PricingStrategy {
 
     private static final int MONEY_SCALE = 2;
 

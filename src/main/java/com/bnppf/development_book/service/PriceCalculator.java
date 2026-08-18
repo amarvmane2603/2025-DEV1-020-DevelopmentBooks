@@ -6,12 +6,15 @@ import com.bnppf.development_book.service.pricing.PricingStrategy;
 import java.math.BigDecimal;
 
 import java.util.Objects;
+import org.springframework.stereotype.Service;
 
 /**
- * Calculates the price of a basket of development books, applying a
- * discount when several different titles are bought together and finding
- * the cheapest way to group any duplicate copies.
+ * Strategy (GoF) Context: the stable entry point the rest of the application
+ * depends on. It holds no pricing logic itself - it just delegates to
+ * whichever {@link PricingStrategy} it was configured with, so the algorithm
+ * can change (or be swapped for a different one) without touching callers.
  */
+@Service
 public class PriceCalculator {
 
     private final PricingStrategy pricingStrategy;
