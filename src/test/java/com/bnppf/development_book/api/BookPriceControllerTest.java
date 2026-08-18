@@ -1,5 +1,6 @@
 package com.bnppf.development_book.api;
 
+import com.bnppf.development_book.exception.GlobalExceptionHandler;
 import com.bnppf.development_book.service.BookCatalog;
 import com.bnppf.development_book.service.PriceCalculator;
 import com.bnppf.development_book.service.pricing.impl.DiscountPricingStrategy;
@@ -15,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BookPriceController.class)
-@Import({DiscountPricingStrategy.class, PriceCalculator.class, BookCatalog.class})
+@Import({DiscountPricingStrategy.class, PriceCalculator.class, BookCatalog.class, GlobalExceptionHandler.class})
 class BookPriceControllerTest {
 
     @Autowired
