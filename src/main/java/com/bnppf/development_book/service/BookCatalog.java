@@ -2,7 +2,9 @@ package com.bnppf.development_book.service;
 
 import com.bnppf.development_book.exception.UnknownBookException;
 import com.bnppf.development_book.model.Book;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class BookCatalog {
 
     public Book findByName(String name) {
