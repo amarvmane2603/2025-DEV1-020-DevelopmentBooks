@@ -65,16 +65,18 @@ An unknown book or a missing `books` field returns `400 Bad Request` with
 
 ## Testing strategy
 
+Each piece of the pricing logic has its own small tests, plus a few tests
+at the end that check the whole API works as expected. If a test fails,
+the class name tells you exactly where to look.
 
-| Class | Tests | What it proves |
+| Class | Tests | What it checks |
 |---|---:|---|
-| `BasketTest` | 4 | construction, null-safety, immutability |
-| `DiscountRateTest` | 5 | the five official discount rates |
-| `GroupSizeCalculatorTest` | 2 | one-copy-per-title grouping, duplicates spilling into a second group |
-| `GroupSizeAdjusterTest` | 2 | the 5-plus-3-becomes-4-plus-4 correction, and a case that needs no adjustment |
-| `DiscountPricingStrategyTest` | 15 | empty basket, all five group-size discounts, duplicate-copy grouping, the official acceptance case |
-| `PriceCalculatorTest` | 1 | the Strategy context delegates to whatever `PricingStrategy` it is given |
-| `BookCatalogTest` | 2 | resolves a catalogue book, rejects an unknown name |
-| `BookPriceControllerTest` | 4 | the HTTP contract: happy path, empty basket, unknown book, missing field |
+| `BasketTest` | 4 | A basket of books is created correctly, and rejects bad input like `null` |
+| `DiscountRateTest` | 5 | Each of the 5 discount levels (for 1, 2, 3, 4, or 5 different books together) is correct |
+| `GroupSizeCalculatorTest` | 2 | Books get grouped correctly — one of each title per group, extra copies start a new group |
+| `GroupSizeAdjusterTest` | 2 | The special case where splitting groups a smarter way gives a cheaper price, plus a case where no adjustment is needed |
+| `DiscountPricingStrategyTest` | 15 | The actual price calculation — covers an empty basket, all 5 discount levels, duplicate copies, and the official example from the assignment |
+| `PriceCalculatorTest` | 1 | The calculator correctly hands off the work to the pricing logic |
+| `BookCatalogTest` | 2 | Looking up a real book works, and looking up a fake book name is rejected |
+| `BookPriceControllerTest` | 4 | The API itself — a normal request, an empty basket, an unknown book, and a missing field all return the right response |
 | **Total** | **35** | |
-
