@@ -55,4 +55,21 @@ class BookPriceControllerTest {
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.price").value(0.00));
     }
+
+    @Test
+    void returnsBadRequestForAnUnknownBook() throws Exception {
+        // Arrange
+        String requestBody = """
+                {"books": ["NOT_A_REAL_BOOK"]}
+                """;
+
+        // Act
+        var response = mockMvc.perform(post("/api/books/price")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody));
+
+        // Assert
+        response.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Unknown book: NOT_A_REAL_BOOK"));
+    }
 }
